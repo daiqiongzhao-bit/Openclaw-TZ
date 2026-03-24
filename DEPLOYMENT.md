@@ -68,12 +68,14 @@ docker compose run --rm openclaw-tz-init
 ```text
 install.sh
 bin/init-openclaw-tz.sh
+bin/verify-openclaw-tz.sh
 ```
 
 职责划分：
 
-1. `install.sh`：远程单行安装总入口，负责检查基础依赖、拉取/更新仓库、调用初始化脚本
+1. `install.sh`：远程单行安装总入口，负责检查基础依赖、拉取/更新仓库、调用初始化脚本与验收脚本
 2. `bin/init-openclaw-tz.sh`：工作区初始化脚本，负责生成 `.env`、写入 OpenClaw 配置、绑定 agent 工作区、检查状态并尝试重启 Gateway，同时回显 dashboard、本地回环与局域网候选访问地址
+3. `bin/verify-openclaw-tz.sh`：安装后验收脚本，负责检查安装入口、工作区绑定、OpenClaw 状态、Gateway 状态与 dashboard 链接
 
 支持的环境变量：
 
@@ -97,6 +99,7 @@ bin/init-openclaw-tz.sh
 - `skills/`
 - `install.sh`
 - `bin/init-openclaw-tz.sh`
+- `bin/verify-openclaw-tz.sh`
 - `.env.example`
 - `docker-compose.yml`
 
@@ -146,6 +149,7 @@ bin/init-openclaw-tz.sh
 ```bash
 openclaw status
 openclaw gateway status
+bash bin/verify-openclaw-tz.sh
 ```
 
 并验证：
@@ -162,6 +166,7 @@ openclaw gateway status
 
 - 有远程单行安装总入口
 - 有工作区初始化脚本
+- 有安装后自动验收闭环
 - 有最小 Docker Compose 入口
 - 有安装与部署文档
 - 有对运行态/敏感态内容的打包边界说明

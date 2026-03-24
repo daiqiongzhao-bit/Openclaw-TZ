@@ -85,11 +85,17 @@ main() {
   local install_dir
   install_dir="$(clone_or_update_repo "$branch")"
 
-  chmod +x "$install_dir/bin/init-openclaw-tz.sh"
+  chmod +x "$install_dir/bin/init-openclaw-tz.sh" "$install_dir/bin/verify-openclaw-tz.sh"
   log "开始执行工作区初始化脚本"
   (
     cd "$install_dir"
     bash "$install_dir/bin/init-openclaw-tz.sh"
+  )
+
+  log "开始执行安装后验收脚本"
+  (
+    cd "$install_dir"
+    bash "$install_dir/bin/verify-openclaw-tz.sh" || warn "验收脚本发现问题，请根据输出继续排查"
   )
 
   cat <<EOF

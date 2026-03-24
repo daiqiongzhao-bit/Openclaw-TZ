@@ -104,6 +104,7 @@ curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/i
 - 把 `taizi.workspace` 指向当前仓库
 - 检查 OpenClaw 状态并重启 Gateway
 - 自动回显 dashboard 链接、本地回环地址与局域网候选地址
+- 自动执行安装后验收，检查 workspace 绑定、状态与 dashboard 链接
 
 ### 3. 发送测试消息
 

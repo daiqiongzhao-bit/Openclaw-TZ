@@ -44,7 +44,8 @@ OPENCLAW_RESTART_GATEWAY=0 curl -fsSL https://raw.githubusercontent.com/daiqiong
 1. 检查 `git` 与 `python3` 等基础依赖
 2. 拉取或更新 `Openclaw-TZ` 仓库到本地目录（默认 `$HOME/Openclaw-TZ`）
 3. 自动调用仓库内的 `bin/init-openclaw-tz.sh`
-4. 输出后续命令与自定义入口示例
+4. 自动调用 `bin/verify-openclaw-tz.sh` 做安装后验收
+5. 输出后续命令与自定义入口示例
 
 ## 4. 克隆仓库后执行（可选）
 
@@ -61,6 +62,7 @@ bash install.sh
 3. 确保 `taizi.workspace` 指向当前仓库目录
 4. 尝试执行 `openclaw status` 与 `openclaw gateway restart`
 5. 自动回显 dashboard 链接、本地回环地址与局域网候选访问地址
+6. 自动执行验收脚本，检查 workspace 绑定、状态与 dashboard 链接
 
 如果你不想自动重启 Gateway：
 
@@ -124,6 +126,7 @@ cp .env.example .env
 openclaw dashboard --no-open
 openclaw status
 openclaw gateway status
+bash bin/verify-openclaw-tz.sh
 ```
 
 然后通过你的接入渠道给 `taizi` 发一条测试消息，例如：

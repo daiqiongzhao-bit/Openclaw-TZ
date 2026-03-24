@@ -60,6 +60,7 @@ bash install.sh
 2. 检查并创建 `~/.openclaw/openclaw.json`（若不存在则生成最小示例）
 3. 确保 `taizi.workspace` 指向当前仓库目录
 4. 尝试执行 `openclaw status` 与 `openclaw gateway restart`
+5. 自动回显 dashboard 链接、本地回环地址与局域网候选访问地址
 
 如果你不想自动重启 Gateway：
 
@@ -111,7 +112,16 @@ cp .env.example .env
 
 ## 7. 验证安装
 
+初始化脚本结束后，优先看它输出的“访问入口”区块：
+
+- 推荐使用 `openclaw dashboard` 生成的带 token 链接
+- 本地直接访问通常是 `http://127.0.0.1:18789/`
+- 若脚本探测到局域网 IP，也会一并打印候选地址
+
+你也可以手工检查：
+
 ```bash
+openclaw dashboard --no-open
 openclaw status
 openclaw gateway status
 ```

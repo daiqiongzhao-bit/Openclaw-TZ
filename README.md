@@ -97,6 +97,7 @@ openclaw gateway restart
 
 ## 文档导航
 
+- [INSTALL.md](./INSTALL.md) — 快速安装说明
 - [DEPLOYMENT.md](./DEPLOYMENT.md) — 部署与启动流程
 - [ARCHITECTURE.md](./ARCHITECTURE.md) — 架构说明
 - [FAQ.md](./FAQ.md) — 常见问题
@@ -133,7 +134,7 @@ taizi 工作区
 - `.env.example`
 - `INSTALL.md`
 - `CONTRIBUTING.md`
-- 初始化脚本
+- 初始化脚本（已提供基础版）
 - 架构图 / 流程图图片版
 - 仓库清理与模板化拆分
 

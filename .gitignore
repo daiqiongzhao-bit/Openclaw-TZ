@@ -1,0 +1,40 @@
+# OpenClaw local state
+.openclaw/
+.clawhub/
+
+# Secrets / auth
+*_auth.json
+*_auth_audit.json
+*.lock
+
+# Logs
+*.log
+
+# Node dependencies
+node_modules/
+reports/node_modules/
+
+# Python / misc caches
+__pycache__/
+*.pyc
+
+# OS/editor noise
+.DS_Store
+.vscode/
+.vite/
+
+# Large/generated artifacts
+screenshots/
+reports/*.pptx
+hr2/__MACOSX/
+
+# Build outputs
+**/target/
+**/dist/
+**/build/
+
+# Nested repos / generated app data
+edict/
+data/
+scripts/
+SOUL.md.bak.*

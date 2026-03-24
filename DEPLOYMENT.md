@@ -13,14 +13,28 @@
 
 ## 二、推荐部署方式
 
-### 方式 A：宿主机直接部署（推荐）
+### 方式 A：远程单行安装（推荐）
 
-适合已经有 OpenClaw 的用户。
+适合希望一条命令直接完成拉取与初始化的用户。
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+```
+
+优点：
+
+- 入口统一，文档与实际执行口径一致
+- 不要求用户先手工克隆仓库
+- 可通过环境变量覆盖安装目录、agent id、是否重启 Gateway
+
+### 方式 B：宿主机克隆后部署
+
+适合已经拿到仓库、希望在本地可见文件后再执行初始化的用户。
 
 ```bash
 git clone https://github.com/daiqiongzhao-bit/Openclaw-TZ.git
 cd Openclaw-TZ
-bash bin/init-openclaw-tz.sh
+bash install.sh
 ```
 
 优点：
@@ -29,7 +43,7 @@ bash bin/init-openclaw-tz.sh
 - 更容易接入本机已有配置、模型服务、Telegram 渠道
 - 更适合长期维护
 
-### 方式 B：Docker Compose 运行初始化容器
+### 方式 C：Docker Compose 运行初始化容器
 
 适合想通过容器统一执行初始化逻辑的人。
 
@@ -49,22 +63,22 @@ docker compose run --rm openclaw-tz-init
 
 ## 三、初始化脚本做了什么
 
-根目录脚本：
+根目录脚本分为两层：
 
 ```text
+install.sh
 bin/init-openclaw-tz.sh
 ```
 
-主要动作：
+职责划分：
 
-1. 自动生成 `.env`（若不存在）
-2. 自动创建或更新 `~/.openclaw/openclaw.json`
-3. 确保 agent `taizi` 指向当前工作区
-4. 检查 OpenClaw / Gateway 状态
-5. 尝试重启 Gateway
+1. `install.sh`：远程单行安装总入口，负责检查基础依赖、拉取/更新仓库、调用初始化脚本
+2. `bin/init-openclaw-tz.sh`：工作区初始化脚本，负责生成 `.env`、写入 OpenClaw 配置、绑定 agent 工作区、检查状态并尝试重启 Gateway
 
 支持的环境变量：
 
+- `OPENCLAW_TZ_INSTALL_DIR`：覆盖默认安装目录（默认 `$HOME/Openclaw-TZ`）
+- `OPENCLAW_TZ_BRANCH`：覆盖默认分支（默认 `main`）
 - `OPENCLAW_AGENT_ID`：覆盖默认 agent id（默认 `taizi`）
 - `OPENCLAW_DIR`：覆盖默认 `~/.openclaw`
 - `OPENCLAW_CONFIG`：指定 OpenClaw 配置文件路径
@@ -81,6 +95,7 @@ bin/init-openclaw-tz.sh
 - `SECURITY.md`
 - `AGENTS.md` / `SOUL.md` / `IDENTITY.md` / `USER.md`
 - `skills/`
+- `install.sh`
 - `bin/init-openclaw-tz.sh`
 - `.env.example`
 - `docker-compose.yml`
@@ -145,7 +160,8 @@ openclaw gateway status
 
 本次整理后，仓库已经具备一个 **可落地的初版交付方向**：
 
-- 有一键初始化脚本
+- 有远程单行安装总入口
+- 有工作区初始化脚本
 - 有最小 Docker Compose 入口
 - 有安装与部署文档
 - 有对运行态/敏感态内容的打包边界说明

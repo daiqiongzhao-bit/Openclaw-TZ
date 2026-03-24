@@ -23,15 +23,29 @@
 
 ## 现在可以怎样用
 
-### 方式 1：宿主机一键初始化（推荐）
+### 方式 1：远程单行安装（推荐）
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+```
+
+可选自定义：
+
+```bash
+OPENCLAW_TZ_INSTALL_DIR=$HOME/Openclaw-TZ curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+OPENCLAW_AGENT_ID=taizi curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+OPENCLAW_RESTART_GATEWAY=0 curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+```
+
+### 方式 2：宿主机克隆后初始化
 
 ```bash
 git clone https://github.com/daiqiongzhao-bit/Openclaw-TZ.git
 cd Openclaw-TZ
-bash bin/init-openclaw-tz.sh
+bash install.sh
 ```
 
-### 方式 2：用 Docker Compose 跑初始化容器
+### 方式 3：用 Docker Compose 跑初始化容器
 
 ```bash
 docker compose run --rm openclaw-tz-init
@@ -62,27 +76,28 @@ docker compose run --rm openclaw-tz-init
 ├── reports/                  # 报告脚本与产出
 ├── screenshots/              # 项目截图（默认不建议纳入部署包）
 ├── edict/                    # 附属嵌套项目，非当前部署主体
-├── bin/init-openclaw-tz.sh   # 一键初始化脚本
+├── install.sh                # 远程单行安装总入口
+├── bin/init-openclaw-tz.sh   # 工作区初始化脚本
 ├── docker-compose.yml        # 初始化容器示例
 └── .openclaw/                # 本地运行态文件（不应公开）
 ```
 
 ## 快速开始
 
-### 1. 克隆仓库
+### 1. 直接执行远程安装入口
 
 ```bash
-git clone https://github.com/daiqiongzhao-bit/Openclaw-TZ.git
-cd Openclaw-TZ
+curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
 ```
 
-### 2. 执行初始化脚本
+这个总入口会自动：
 
-```bash
-bash bin/init-openclaw-tz.sh
-```
+- 检查 `git` 与 `python3`
+- 拉取或更新 `Openclaw-TZ` 仓库
+- 调用 `bin/init-openclaw-tz.sh`
+- 输出后续使用与自定义方式
 
-脚本会尝试：
+### 2. 初始化脚本会继续尝试
 
 - 生成 `.env`
 - 确保 `~/.openclaw/openclaw.json` 存在

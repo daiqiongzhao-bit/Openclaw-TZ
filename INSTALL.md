@@ -25,20 +25,36 @@
 - Telegram Bot Token
 - 模型服务地址与 API Key
 
-## 3. 获取仓库
+## 3. 远程单行安装（推荐）
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+```
+
+可选自定义方式：
+
+```bash
+OPENCLAW_TZ_INSTALL_DIR=$HOME/Openclaw-TZ curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+OPENCLAW_AGENT_ID=my-agent curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+OPENCLAW_RESTART_GATEWAY=0 curl -fsSL https://raw.githubusercontent.com/daiqiongzhao-bit/Openclaw-TZ/main/install.sh | bash
+```
+
+远程脚本会先做以下事情：
+
+1. 检查 `git` 与 `python3` 等基础依赖
+2. 拉取或更新 `Openclaw-TZ` 仓库到本地目录（默认 `$HOME/Openclaw-TZ`）
+3. 自动调用仓库内的 `bin/init-openclaw-tz.sh`
+4. 输出后续命令与自定义入口示例
+
+## 4. 克隆仓库后执行（可选）
 
 ```bash
 git clone https://github.com/daiqiongzhao-bit/Openclaw-TZ.git
 cd Openclaw-TZ
+bash install.sh
 ```
 
-## 4. 一键初始化（推荐）
-
-```bash
-bash bin/init-openclaw-tz.sh
-```
-
-该脚本会做以下事情：
+仓库内初始化脚本会继续做以下事情：
 
 1. 若不存在 `.env`，则由 `.env.example` 复制生成
 2. 检查并创建 `~/.openclaw/openclaw.json`（若不存在则生成最小示例）

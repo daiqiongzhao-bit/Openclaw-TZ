@@ -89,12 +89,14 @@ ensure_agent_workspace_binding() {
 
 collect_local_ips() {
   if command -v hostname >/dev/null 2>&1; then
-    LOCAL_IPS="$(hostname -I 2>/dev/null | tr ' ' '\n' | awk 'NF' | grep -v '^127\.' | paste -sd ', ' - || true)"
+    LOCAL_IPS="$(hostname -I 2>/dev/null | tr ' ' '\n' | awk 'NF' | grep -v '^127\.' || true)"
   fi
 
   if [[ -z "$LOCAL_IPS" ]] && command -v ip >/dev/null 2>&1; then
-    LOCAL_IPS="$(ip -4 addr show scope global 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1 | paste -sd ', ' - || true)"
+    LOCAL_IPS="$(ip -4 addr show scope global 2>/dev/null | awk '/inet / {print $2}' | cut -d/ -f1 || true)"
   fi
+
+  LOCAL_IPS="$(printf '%s\n' "$LOCAL_IPS" | tr ', ' '\n\n' | awk 'NF && !seen[$0]++')"
 }
 
 collect_dashboard_link() {

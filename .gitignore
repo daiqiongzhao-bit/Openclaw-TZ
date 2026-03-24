@@ -1,14 +1,24 @@
 # OpenClaw local state
 .openclaw/
 .clawhub/
+.env
+.env.local
+.env.*.local
 
 # Secrets / auth
 *_auth.json
 *_auth_audit.json
+*.pem
+*.key
+*.crt
+*.p12
+*.secret
 *.lock
 
 # Logs
 *.log
+*.pid
+*.out
 
 # Node dependencies
 node_modules/

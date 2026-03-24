@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  openclaw-tz-init:
+    image: ghcr.io/openclaw/openclaw:latest
+    container_name: openclaw-tz-init
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+      - ${HOME}/.openclaw:/root/.openclaw
+    entrypoint: ["bash", "-lc"]
+    command: ["chmod +x /workspace/bin/init-openclaw-tz.sh && /workspace/bin/init-openclaw-tz.sh"]
+    restart: "no"
+
+# 用法：
+#   docker compose run --rm openclaw-tz-init
+#
+# 说明：
+# - 这是一个“初始化容器”，用于在装有 Docker 的环境里执行工作区初始化。
+# - 真正的 OpenClaw 守护进程/渠道配置仍依赖宿主机或你自定义的 OpenClaw 镜像。
+# - 若 ghcr.io/openclaw/openclaw:latest 不存在或不适合你的环境，请改成你自己的 OpenClaw 基础镜像。

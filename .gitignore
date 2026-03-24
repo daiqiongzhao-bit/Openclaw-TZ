@@ -35,6 +35,7 @@ hr2/__MACOSX/
 
 # Nested repos / generated app data
 edict/
+hr2/
 data/
 scripts/
 SOUL.md.bak.*
